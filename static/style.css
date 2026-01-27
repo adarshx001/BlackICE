@@ -1,0 +1,558 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+body {
+    background: #0b0f14;
+    color: #e5e7eb;
+}
+
+/* Top bar */
+.topbar {
+    background: #111827;
+    border-bottom: 1px solid #1f2933;
+    padding: 16px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.logo span {
+    color: #38bdf8;
+}
+
+/* Navigation */
+.nav a {
+    color: #9ca3af;
+    text-decoration: none;
+    margin-left: 24px;
+    font-size: 14px;
+}
+
+.nav a.active,
+.nav a:hover {
+    color: #38bdf8;
+}
+
+/* Page content */
+.container {
+    max-width: 900px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+h1 {
+    font-size: 28px;
+    margin-bottom: 6px;
+}
+
+.subtitle {
+    color: #9ca3af;
+    margin-bottom: 30px;
+}
+
+/* Card */
+.card {
+    background: #111827;
+    border: 1px solid #1f2933;
+    border-radius: 12px;
+    padding: 32px;
+}
+
+/* Inputs */
+input {
+    width: 100%;
+    padding: 14px;
+    background: #0b0f14;
+    border: 1px solid #1f2933;
+    border-radius: 8px;
+    color: #e5e7eb;
+    margin-bottom: 16px;
+}
+
+input::placeholder {
+    color: #6b7280;
+}
+
+/* Button */
+button {
+    background: #38bdf8;
+    color: #0b0f14;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+.strength-bar {
+    height: 8px;
+    border-radius: 6px;
+    margin-top: 8px;
+}
+
+.strength-bar.weak {
+    width: 30%;
+    background: #ef4444;
+}
+
+.strength-bar.medium {
+    width: 60%;
+    background: #f59e0b;
+}
+
+.strength-bar.strong {
+    width: 100%;
+    background: #22c55e;
+}
+
+/* Track behind the strength bar */
+.strength-track {
+    background: #1f2933;
+    border-radius: 6px;
+    height: 8px;
+    margin: 8px 0;
+}
+
+/* Text color mappings for strength labels */
+.weak-text, .strength-bar.weak { color: #ef4444; }
+.medium-text, .strength-bar.medium { color: #f59e0b; }
+.strong-text, .strength-bar.strong { color: #22c55e; }
+
+.muted { color: #9ca3af; }
+
+/* Hero section */
+.hero {
+    height: calc(100vh - 70px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.hero-content {
+    animation: fadeUp 1.2s ease forwards;
+}
+
+.hero-title {
+    font-size: 48px;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.hero-title span {
+    color: #38bdf8;
+}
+
+.hero-subtitle {
+    color: #9ca3af;
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.hero-button {
+    display: inline-block;
+    padding: 14px 30px;
+    background: #38bdf8;
+    color: #0b0f14;
+    border-radius: 30px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hero-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(56,189,248,0.3);
+}
+
+/* Animation */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.logo img {
+    width: 32px;
+    height: 32px;
+}
+
+.logo .ice {
+    color: #38bdf8;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+textarea {
+    width: 100%;
+    min-height: 90px;
+    background: #0f172a;
+    border: 1px solid #1f2937;
+    border-radius: 8px;
+    padding: 12px;
+    color: #e5e7eb;
+    resize: none;
+}
+
+.label {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #9ca3af;
+}
+
+input[type="range"] {
+    width: 100%;
+    margin: 10px 0;
+}
+
+.hint {
+    font-size: 13px;
+    color: #6b7280;
+    margin-top: 10px;
+}
+
+/* Phishing specific */
+.phishing-card h3 {
+    margin-bottom: 15px;
+}
+
+.phishing-form {
+    display: flex;
+    gap: 10px;
+}
+
+.phishing-form input {
+    flex: 1;
+}
+
+.phishing-result {
+    margin-top: 20px;
+}
+
+.phishing-result ul {
+    margin-top: 8px;
+    padding-left: 18px;
+}
+
+.phishing-result li {
+    color: #9ca3af;
+    font-size: 14px;
+}
+
+/* Disclaimer */
+.disclaimer {
+    margin-top: 25px;
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    background: rgba(239, 68, 68, 0.08);
+}
+
+.disclaimer h4 {
+    color: #fca5a5;
+    margin-bottom: 8px;
+}
+
+.disclaimer p {
+    color: #f3b4b4;
+    font-size: 14px;
+}
+
+.status.green {
+    color: #22c55e;
+}
+
+.status.orange {
+    color: #f59e0b;
+}
+
+.status.red {
+    color: #ef4444;
+}
+
+
+.loader {
+    margin-top: 15px;
+    padding: 12px;
+    border-radius: 8px;
+    background: rgba(56, 189, 248, 0.15);
+    color: #38bdf8;
+    font-weight: 500;
+    text-align: center;
+    animation: pulse 1.2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.4; }
+    50% { opacity: 1; }
+    100% { opacity: 0.4; }
+}
+
+.hex-box {
+    background: #020617;
+    border: 1px solid #1e293b;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 13px;
+    color: #38bdf8;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-all;
+    max-height: 200px;
+}
+
+.strength-bar {
+    height: 8px;
+    border-radius: 6px;
+    transition: width 0.6s ease-in-out;
+}
+
+.strength-bar.weak {
+    width: 30%;
+    background: #ef4444;
+}
+
+.strength-bar.medium {
+    width: 60%;
+    background: #f59e0b;
+}
+
+.strength-bar.strong {
+    width: 100%;
+    background: #22c55e;
+}
+
+.reasons {
+    margin-top: 15px;
+    animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.loader {
+    margin-top: 12px;
+    padding: 10px;
+    border-radius: 8px;
+    background: rgba(56, 189, 248, 0.15);
+    color: #38bdf8;
+    text-align: center;
+    animation: pulse 1.2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.4; }
+    50% { opacity: 1; }
+    100% { opacity: 0.4; }
+}
+
+.reasons, .muted {
+    animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== Mobile Responsiveness ===== */
+@media (max-width: 768px) {
+
+    body {
+        padding: 0;
+    }
+
+    .container {
+        padding: 15px;
+    }
+
+    .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .nav {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .nav a {
+        font-size: 14px;
+    }
+
+    input, button {
+        width: 100%;
+        font-size: 16px;
+    }
+
+    button {
+        margin-top: 10px;
+    }
+
+    .card {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+
+    .subtitle {
+        font-size: 14px;
+    }
+
+    .hex-box {
+        font-size: 12px;
+    }
+}
+
+button {
+    min-height: 44px; /* good for fingers */
+}
+
+input {
+    min-height: 44px;
+}
+
+.select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    background: #0f172a;
+    border: 1px solid #1f2937;
+    color: #e5e7eb;
+    border-radius: 6px;
+}
+
+.output-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.output-row button {
+    white-space: nowrap;
+}
+
+/* ===== Smooth Page Fade ===== */
+body {
+    animation: fadeIn 0.6s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+button {
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+button:active {
+    transform: scale(0.96);
+}
+
+/* ===== Card Hover Animation ===== */
+.card {
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+
+/* ===== Navbar Link Animation ===== */
+.nav a {
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 0%;
+    height: 2px;
+    background: #38bdf8;
+    transition: width 0.3s ease;
+}
+
+.nav a:hover::after,
+.nav a.active::after {
+    width: 100%;
+}
+
+.strength-bar {
+  height: 8px;
+  background: #222;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+#strengthFill {
+  height: 100%;
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+
+.strength-bar-bg {
+    width: 100%;
+    height: 10px;
+    background: #1f2933;
+    border-radius: 6px;
+    margin-top: 8px;
+}
+
+#strengthFill {
+    height: 100%;
+    width: 0%;
+    border-radius: 6px;
+    transition: width 0.3s ease;
+}

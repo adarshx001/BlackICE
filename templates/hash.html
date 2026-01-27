@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackICE – Hashing</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="logo">
+        <img src="{{ url_for('static', filename='logo.jpeg') }}">
+        <span>Black</span><span class="ice">ICE</span>
+    </div>
+    <nav class="nav">
+        <a href="/password">Password</a>
+        <a href="/hash" class="active">Hashing</a>
+        <a href="/phishing">Phishing</a>
+        <a href="/file">File Analyzer</a>
+    </nav>
+</header>
+
+<main class="container">
+    <h1>Hashing & Encryption Tools</h1>
+    <p class="subtitle">Explore cryptographic hashing and basic encryption methods</p>
+
+    <div class="grid">
+
+        <!-- HASHING -->
+        <div class="card">
+            <h3>Cryptographic Hashing</h3>
+
+        <select id="algo" class="select">
+            <option value="SHA-256">SHA-256</option>
+            <option value="SHA-1">SHA-1</option>
+        </select>
+
+        <textarea id="hashInput" placeholder="Enter text to hash"></textarea>
+
+        <div class="output-row">
+            <textarea id="hashOutput" readonly placeholder="Hashed output"></textarea>
+            <button type="button" onclick="copyHash()">Copy</button>
+        </div>
+
+        <p class="hint">
+            Hashing is a one-way cryptographic function used for integrity and password storage.
+        </p>
+
+        </div>
+
+<!-- CAESAR -->
+<div class="card">
+    <h3>Caesar Cipher</h3>
+
+    <textarea id="caesarInput" placeholder="Enter text"></textarea>
+
+    <label class="label">
+        Shift Key: <span id="shiftVal">3</span>
+    </label>
+
+    <input type="range" min="1" max="25" value="3" id="shift">
+
+    <p class="label">Encrypted:</p>
+    <textarea id="caesarOutput" readOnly></textarea>
+</div>
+
+</main>
+
+<script>
+async function hashText(text, algo) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(text);
+    const hashBuffer = await crypto.subtle.digest(algo, data);
+    return Array.from(new Uint8Array(hashBuffer))
+        .map(b => b.toString(16).padStart(2, "0"))
+        .join("");
+}
+
+async function updateHash() {
+    const text = document.getElementById("hashInput").value;
+    const algo = document.getElementById("algo").value;
+
+    if (!text) {
+        document.getElementById("hashOutput").value = "";
+        return;
+    }
+
+    document.getElementById("hashOutput").value =
+        await hashText(text, algo);
+}
+
+function copyHash() {
+    const out = document.getElementById("hashOutput");
+    out.select();
+    document.execCommand("copy");
+    alert("Hash copied");
+}
+
+document.getElementById("hashInput").addEventListener("input", updateHash);
+document.getElementById("algo").addEventListener("change", updateHash);
+</script>
+<script>
+/* ---------- CAESAR CIPHER ---------- */
+function caesar(text, shift) {
+    return text.replace(/[a-z]/gi, c => {
+        const base = c <= "Z" ? 65 : 97;
+        return String.fromCharCode(
+            ((c.charCodeAt(0) - base + shift) % 26) + base
+        );
+    });
+}
+
+function updateCaesar() {
+    const text = document.getElementById("caesarInput").value;
+    const shift = Number(document.getElementById("shift").value);
+
+    document.getElementById("shiftVal").innerText = shift;
+    document.getElementById("caesarOutput").value =
+        text ? caesar(text, shift) : "";
+}
+
+document.getElementById("caesarInput").addEventListener("input", updateCaesar);
+document.getElementById("shift").addEventListener("input", updateCaesar);
+</script>
+
+
+</body>
+</html>

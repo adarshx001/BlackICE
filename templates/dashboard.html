@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard – BlackICE</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<main class="container">
+    <div class="card">
+        <h2>Welcome, {{ current_user.email }}</h2>
+
+        <p class="muted">Your cybersecurity activity will appear here.</p>
+
+        <ul>
+            <li>🔐 Password strength checks (coming soon)</li>
+            <li>🌐 Phishing URL scans</li>
+            <li>📁 File analysis reports</li>
+            <li>#️⃣ Hashing history</li>
+        </ul>
+    </div>
+</main>
+
+</body>
+</html>

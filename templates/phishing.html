@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackICE – Phishing Checker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="logo">
+        <img src="{{ url_for('static', filename='logo.jpeg') }}">
+        <span>Black</span><span class="ice">ICE</span>
+    </div>
+    <nav class="nav">
+        <a href="/password">Password</a>
+        <a href="/hash">Hashing</a>
+        <a href="/phishing" class="active">Phishing</a>
+        <a href="/file">File Analyzer</a>
+    </nav>
+</header>
+
+<main class="container">
+    <h1>Phishing URL Checker</h1>
+    <p class="subtitle">Analyze URLs for potential phishing characteristics</p>
+
+    <!-- URL Analysis Card -->
+    <div class="card phishing-card">
+        <h3>URL Analysis</h3>
+
+        <form method="post" class="phishing-form" onsubmit="showLoader()">
+    <div id="loader" class="loader" style="display:none;">
+    Analyzing URL...
+    </div>
+
+            <input
+    type="text"
+    name="url"
+    placeholder="Enter URL to analyze (e.g. https://example.com)"
+    value="{{ request.form.url if request.method == 'POST' else '' }}"
+    required
+>
+            <button type="submit">Analyze</button>
+        </form>
+
+        {% if data %}
+<div class="card" style="margin-top:25px;">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div>
+            <h3>Threat Assessment</h3>
+            <p class="threat-status {{ data.color }}">
+    {{ data.status }}
+</p>
+        </div>
+        <div style="font-size:20px;">
+            Risk Score<br>
+            <strong>{{ data.score }}/100</strong>
+        </div>
+    </div>
+</div>
+
+<div class="card" style="margin-top:20px;">
+    <h3>Security Checks</h3>
+    <ul>
+        {% for check, info in data.checks.items() %}
+        <li>
+            {% if info[0] %}
+                ✅
+            {% else %}
+                ❌
+            {% endif %}
+            <strong>{{ check }}:</strong> {{ info[1] }}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="card" style="margin-top:20px;">
+    <h3>Recommendations</h3>
+    <ul>
+        <li>Always verify the domain name carefully</li>
+        <li>Check for HTTPS and valid certificates</li>
+        <li>Avoid entering credentials on suspicious pages</li>
+        <li>Be cautious of unusually long URLs</li>
+    </ul>
+</div>
+{% endif %}
+
+    </div>
+
+    <!-- Disclaimer Card -->
+    <div class="card disclaimer">
+        <h4>⚠ Educational Disclaimer</h4>
+        <p>
+            This tool is for educational purposes only. It provides basic heuristic
+            analysis and should not be relied upon as the sole method for determining
+            website safety. Always use comprehensive security tools and best practices.
+        </p>
+    </div>
+</main>
+<script>
+function showLoader() {
+    document.getElementById("loader").style.display = "block";
+}
+</script>
+</body>
+</html>

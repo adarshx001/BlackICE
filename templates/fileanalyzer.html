@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackICE – File Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="logo">
+        <img src="{{ url_for('static', filename='logo.jpeg') }}">
+        <span>Black</span><span class="ice">ICE</span>
+    </div>
+    <nav class="nav">
+        <a href="/password">Password</a>
+        <a href="/hash">Hashing</a>
+        <a href="/phishing">Phishing</a>
+        <a href="/file" class="active">File Analyzer</a>
+    </nav>
+</header>
+
+<main class="container">
+    <h1>File Metadata & Analysis</h1>
+    <p class="subtitle">Analyze file metadata and detect potential risks</p>
+
+    <!-- Upload Card -->
+    <div class="card">
+        <form method="post" enctype="multipart/form-data">
+            <input type="file" name="file" required>
+            <button type="submit">Analyze File</button>
+        </form>
+    </div>
+
+    {% if data %}
+
+    <!-- File Info -->
+    <div class="card" style="margin-top:25px;">
+        <h3>File Information</h3>
+        <p><strong>Name:</strong> {{ data.name }}</p>
+        <p><strong>Size:</strong> {{ data.size_kb }} KB</p>
+        <p><strong>Type:</strong> {{ data.mime }}</p>
+        <p><strong>Entropy:</strong> {{ data.entropy }} bits</p>
+    </div>
+
+    <!-- Analysis Results -->
+    <div class="card" style="margin-top:20px;">
+        <h3>Analysis Results</h3>
+        <ul>
+            {% for msg in data.results %}
+         <li>⚠️ {{ msg }}</li>
+        {% endfor %}
+
+        </ul>
+    </div>
+    <!-- Hex Preview -->
+        <div class="card" style="margin-top:20px;">
+        <h3>Hex Preview (First 256 Bytes)</h3>
+        <pre class="hex-box">
+        {{ data.hex_preview }}
+            </pre>
+        </div>
+{% if data.hex_preview %}
+<div class="card" style="margin-top:20px;">
+    <h3>Hex Preview (First 256 Bytes)</h3>
+    <pre class="hex-box">{{ data.hex_preview }}</pre>
+</div>
+{% endif %}
+
+    <!-- Disclaimer -->
+    <div class="card disclaimer">
+        <h4>⚠ Educational Disclaimer</h4>
+        <p>
+            This analysis is heuristic-based and does not replace antivirus software.
+            No file execution is performed.
+        </p>
+    </div>
+
+    {% endif %}
+</main>
+
+</body>
+</html>

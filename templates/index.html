@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackICE</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header class="topbar">
+   <div class="logo">
+    <img src="{{ url_for('static', filename='logo.jpeg') }}" alt="BlackICE Logo">
+    <span>Black</span><span class="ice">ICE</span>
+</div>
+
+    <nav class="nav">
+    <a href="/password">Password</a>
+    <a href="/hash">Hashing</a>
+    <a href="/phishing">Phishing</a>
+    <a href="/file">File Analyzer</a>
+
+    {% if current_user.is_authenticated %}
+        <a href="/dashboard">Dashboard</a>
+        <a href="/logout">Logout</a>
+    {% else %}
+        <a href="/login">Login</a>
+        <a href="/register">Register</a>
+    {% endif %}
+</nav>
+
+</header>
+
+<main class="hero">
+    <div class="hero-content">
+        <h1 class="hero-title">BlackICE</h1>
+        <p class="hero-subtitle">
+            A minimal, premium cybersecurity education toolkit
+        </p>
+        <a href="/password" class="hero-button">Get Started</a>
+    </div>
+</main>
+
+</body>
+</html>
