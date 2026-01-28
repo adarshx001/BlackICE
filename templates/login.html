@@ -14,9 +14,9 @@
             <p style="color:#ef4444; margin-bottom:12px;">{{ error }}</p>
         {% endif %}
 
-        <form method="POST">
-            <input type="text" name="email" placeholder="Email or Username" required>
-            <input type="password" name="password" placeholder="Password" required>
+        <form method="POST" autocomplete="off">
+            <input type="text" name="identity" placeholder="Email or Username" autocomplete="off" required>
+            <input type="password" name="password" placeholder="Password" autocomplete="new-password" required>
             <button type="submit">Login</button>
         </form>
 
