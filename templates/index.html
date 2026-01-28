@@ -9,78 +9,72 @@
 
 <header class="topbar">
    <div class="logo">
-    <img src="{{ url_for('static', filename='logo.jpeg') }}" alt="BlackICE Logo">
-    <span>Black</span><span class="ice">ICE</span>
-</div>
+      <img src="{{ url_for('static', filename='logo.jpeg') }}" alt="BlackICE Logo">
+      <span>Black</span><span class="ice">ICE</span>
+   </div>
 
-    <nav class="nav">
-    <a href="/password">Password</a>
-    <a href="/hash">Hashing</a>
-    <a href="/phishing">Phishing</a>
-    <a href="/file">File Analyzer</a>
+   <nav class="nav">
+      <a href="/">Home</a>
+      <a href="#tools">Tools</a>
 
-    {% if current_user.is_authenticated %}
-        <a href="/dashboard">Dashboard</a>
-        <a href="/logout">Logout</a>
-    {% else %}
-        <a href="/login">Login</a>
-        <a href="/register">Register</a>
-    {% endif %}
-</nav>
-
+      {% if current_user.is_authenticated %}
+          <a href="/dashboard">Dashboard</a>
+          <a href="/logout">Logout</a>
+      {% else %}
+          <a href="/login">Login</a>
+          <a href="/register">Register</a>
+      {% endif %}
+   </nav>
 </header>
 
 <main class="hero">
-    <div class="hero-content">
-        <h1 class="hero-title">BlackICE</h1>
-        <p class="hero-subtitle">
-            Learn cybersecurity by using real tools.
-        </p>
-
-        <div class="tool-cards">
-
-            <div class="tool-card">
-                <h3>Password Security</h3>
-                <p>Check password strength and risks</p>
-                {% if current_user.is_authenticated %}
-                    <a href="/password" class="tool-btn">Use Tool</a>
-                {% else %}
-                    <a href="/login" class="tool-btn lock">Login to Use</a>
-                {% endif %}
-            </div>
-
-            <div class="tool-card">
-                <h3>Hash Generator</h3>
-                <p>Generate SHA-256 hashes</p>
-                {% if current_user.is_authenticated %}
-                    <a href="/hash" class="tool-btn">Use Tool</a>
-                {% else %}
-                    <a href="/login" class="tool-btn lock">Login to Use</a>
-                {% endif %}
-            </div>
-
-            <div class="tool-card">
-                <h3>Phishing Detector</h3>
-                <p>Check suspicious links</p>
-                {% if current_user.is_authenticated %}
-                    <a href="/phishing" class="tool-btn">Use Tool</a>
-                {% else %}
-                    <a href="/login" class="tool-btn lock">Login to Use</a>
-                {% endif %}
-            </div>
-
-            <div class="tool-card">
-                <h3>File Analyzer</h3>
-                <p>Scan files for risks</p>
-                {% if current_user.is_authenticated %}
-                    <a href="/file" class="tool-btn">Use Tool</a>
-                {% else %}
-                    <a href="/login" class="tool-btn lock">Login to Use</a>
-                {% endif %}
-            </div>
-
-        </div>
-    </div>
+  <div class="hero-content">
+    <h1 class="hero-title">BlackICE</h1>
+    <p class="hero-subtitle">
+      Learn cybersecurity by using real tools.
+    </p>
+  </div>
 </main>
+
+<!-- ================= TOOLS ================= -->
+
+<section id="tools" class="tools-section">
+  <h2 class="tools-title">Security Tools</h2>
+
+  <div class="tools-grid">
+
+    <div class="tool-box" onclick="goToTool('/password')">
+      <h3>Password Security</h3>
+      <p>Check password strength and risks</p>
+    </div>
+
+    <div class="tool-box" onclick="goToTool('/hash')">
+      <h3>Hash Generator</h3>
+      <p>Generate SHA-256 hashes</p>
+    </div>
+
+    <div class="tool-box" onclick="goToTool('/phishing')">
+      <h3>Phishing Detector</h3>
+      <p>Check suspicious links</p>
+    </div>
+
+    <div class="tool-box" onclick="goToTool('/file')">
+      <h3>File Analyzer</h3>
+      <p>Scan files for risks</p>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  function goToTool(path) {
+    {% if current_user.is_authenticated %}
+      window.location.href = path;
+    {% else %}
+      window.location.href = "/login";
+    {% endif %}
+  }
+</script>
+
 </body>
 </html>
