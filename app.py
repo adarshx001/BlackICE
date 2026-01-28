@@ -53,6 +53,11 @@ def load_user(user_id):
 @app.route("/")
 def home():
     return render_template("index.html")
+    @app.route("/dashboard")
+@login_required
+def dashboard():
+    return render_template("dashboard.html")
+
 
 # ---------------- PASSWORD -----------------------
 
