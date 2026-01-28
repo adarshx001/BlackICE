@@ -1,24 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Dashboard – BlackICE</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <title>Dashboard – BlackICE</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
+<header class="topbar">
+  <div class="logo">
+    <img src="{{ url_for('static', filename='logo.jpeg') }}">
+    <span>Black</span><span class="ice">ICE</span>
+  </div>
+
+  <nav class="nav">
+    <a href="/">Home</a>
+    <a href="/logout">Logout</a>
+  </nav>
+</header>
+
 <main class="container">
+  <h1>Welcome, {{ current_user.username }} 👋</h1>
+  <p class="subtitle">Your security activity will appear here</p>
+
+  <div class="grid">
     <div class="card">
-        <h2>Welcome, {{ current_user.email }}</h2>
-
-        <p class="muted">Your cybersecurity activity will appear here.</p>
-
-        <ul>
-            <li>🔐 Password strength checks (coming soon)</li>
-            <li>🌐 Phishing URL scans</li>
-            <li>📁 File analysis reports</li>
-            <li>#️⃣ Hashing history</li>
-        </ul>
+      <h3>Password Tool</h3>
+      <p>Check password strength</p>
+      <a href="/password" class="hero-button">Open</a>
     </div>
+
+    <div class="card">
+      <h3>Hash Generator</h3>
+      <p>Generate secure hashes</p>
+      <a href="/hash" class="hero-button">Open</a>
+    </div>
+
+    <div class="card">
+      <h3>Phishing Detector</h3>
+      <p>Scan suspicious links</p>
+      <a href="/phishing" class="hero-button">Open</a>
+    </div>
+
+    <div class="card">
+      <h3>File Analyzer</h3>
+      <p>Check files for threats</p>
+      <a href="/file" class="hero-button">Open</a>
+    </div>
+  </div>
 </main>
 
 </body>
