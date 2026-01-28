@@ -135,23 +135,27 @@ def register():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    if request.method == "POST":
-        try:
-            email = request.form.get("email")
-            password = request.form.get("password")
+    error = None
 
-            user = User.query.filter_by(email=email).first()
+    if request.method == "POST":
+        identifier = request.form.get("email")  # can be email OR username
+        password = request.form.get("password")
+
+        if not identifier or not password:
+            error = "All fields are required."
+        else:
+            user = User.query.filter(
+                (User.email == identifier) | (User.username == identifier)
+            ).first()
 
             if user and user.check_password(password):
                 login_user(user)
                 return redirect(url_for("home"))
+            else:
+                error = "Account not found or password is wrong. Please register."
 
-            return "Invalid email or password"
+    return render_template("login.html", error=error)
 
-        except Exception as e:
-            return f"Login error: {e}"
-
-    return render_template("login.html")
 
 # ---------------- LOGOUT -------------------------
 
