@@ -16,13 +16,28 @@
 
         <form method="POST" autocomplete="off">
             <input type="text" name="identity" placeholder="Email or Username" autocomplete="off" required>
-            <input type="password" name="password" placeholder="Password" autocomplete="new-password" required>
+
+            <div style="position:relative;">
+                <input id="password" type="password" name="password" placeholder="Password" autocomplete="new-password" required>
+                <span onclick="togglePassword()"
+                      style="position:absolute; right:14px; top:12px; cursor:pointer; color:#9ca3af;">
+                    👁
+                </span>
+            </div>
+
             <button type="submit">Login</button>
         </form>
 
         <p class="muted">No account? <a href="/register">Register</a></p>
     </div>
 </main>
+
+<script>
+function togglePassword() {
+    const field = document.getElementById("password");
+    field.type = field.type === "password" ? "text" : "password";
+}
+</script>
 
 </body>
 </html>
