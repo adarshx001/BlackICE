@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 from flask import Flask, render_template, request, redirect, url_for
 from flask_login import (
     LoginManager,
@@ -7,6 +8,7 @@ from flask_login import (
     login_required,
     current_user
 )
+from sqlalchemy import or_
 
 from models import db, User
 from hash import generate_sha256
@@ -23,10 +25,12 @@ app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "blackice-secret-key")
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///blackice.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-# Cookie/session fixes for Render
+# Session & remember fixes (important for Render)
+app.config["REMEMBER_COOKIE_DURATION"] = timedelta(days=7)
+app.config["SESSION_PERMANENT"] = True
+app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(days=7)
 app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
 app.config["SESSION_COOKIE_SECURE"] = True
-app.config["REMEMBER_COOKIE_DURATION"] = 86400  # 1 day
 
 # -------------------------------------------------
 # Initialize Database
@@ -53,21 +57,23 @@ def load_user(user_id):
 @app.route("/")
 def home():
     return render_template("index.html")
-    @app.route("/dashboard")
+
+@app.route("/dashboard")
 @login_required
 def dashboard():
     return render_template("dashboard.html")
 
-
 # ---------------- PASSWORD -----------------------
 
 @app.route("/password")
+@login_required
 def password():
     return render_template("password.html")
 
 # ---------------- HASHING ------------------------
 
 @app.route("/hash", methods=["GET", "POST"])
+@login_required
 def hash_tool():
     hashed_value = None
 
@@ -81,6 +87,7 @@ def hash_tool():
 # ---------------- PHISHING -----------------------
 
 @app.route("/phishing", methods=["GET", "POST"])
+@login_required
 def phishing():
     data = None
 
@@ -106,7 +113,6 @@ def file_analyzer():
             uploaded_file.save(temp_path)
 
             data = analyze_file(temp_path, uploaded_file.filename)
-
             os.remove(temp_path)
 
     return render_template("fileanalyzer.html", data=data)
@@ -115,35 +121,32 @@ def file_analyzer():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    error = None
+
     if request.method == "POST":
-        try:
-            username = request.form.get("username")
-            email = request.form.get("email")
-            password = request.form.get("password")
+        username = request.form.get("username")
+        email = request.form.get("email")
+        password = request.form.get("password")
 
-            if not username or not email or not password:
-                return "All fields are required"
-
-            if User.query.filter_by(email=email).first():
-                return "Email already exists"
-
+        if not username or not email or not password:
+            error = "All fields are required."
+        elif User.query.filter_by(email=email).first():
+            error = "Email already exists."
+        elif User.query.filter_by(username=username).first():
+            error = "Username already exists."
+        else:
             user = User(username=username, email=email)
             user.set_password(password)
 
             db.session.add(user)
             db.session.commit()
 
-            login_user(user)
-            return redirect(url_for("home"))
+            login_user(user, remember=True)
+            return redirect(url_for("dashboard"))
 
-        except Exception as e:
-            return f"Registration error: {e}"
-
-    return render_template("register.html")
+    return render_template("register.html", error=error)
 
 # ---------------- LOGIN --------------------------
-
-from sqlalchemy import or_
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -166,10 +169,9 @@ def login():
                 error = "Incorrect password."
             else:
                 login_user(user, remember=True)
-                return redirect(url_for("home"))
+                return redirect(url_for("dashboard"))
 
     return render_template("login.html", error=error)
-
 
 # ---------------- LOGOUT -------------------------
 
@@ -180,7 +182,7 @@ def logout():
     return redirect(url_for("home"))
 
 # -------------------------------------------------
-# Create Database Tables (Render needs this)
+# Create Database Tables
 # -------------------------------------------------
 
 with app.app_context():
