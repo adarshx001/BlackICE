@@ -617,3 +617,32 @@ button:active {
   color: #9ca3af;
   font-size: 15px;
 }
+
+/* ===== Mobile Login Fix ===== */
+@media (max-width: 768px) {
+
+  .container {
+    min-height: calc(100vh - 80px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 360px;
+    margin: auto;
+    padding: 22px;
+  }
+
+  .card h2,
+  .card h3 {
+    text-align: center;
+  }
+
+  .card button {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+}
