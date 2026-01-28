@@ -19,9 +19,14 @@ from file_analyzer import analyze_file
 
 app = Flask(__name__)
 
-app.config["SECRET_KEY"] = "blackice-secret-key"
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "blackice-secret-key")
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///blackice.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+# Cookie/session fixes for Render
+app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
+app.config["SESSION_COOKIE_SECURE"] = True
+app.config["REMEMBER_COOKIE_DURATION"] = 86400  # 1 day
 
 # -------------------------------------------------
 # Initialize Database
@@ -149,7 +154,7 @@ def login():
             ).first()
 
             if user and user.check_password(password):
-                login_user(user)
+                login_user(user, remember=True)
                 return redirect(url_for("home"))
             else:
                 error = "Account not found or password is wrong. Please register."
