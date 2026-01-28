@@ -138,26 +138,30 @@ def register():
 
 # ---------------- LOGIN --------------------------
 
+from sqlalchemy import or_
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     error = None
 
     if request.method == "POST":
-        identifier = request.form.get("email")  # can be email OR username
+        identity = request.form.get("identity")
         password = request.form.get("password")
 
-        if not identifier or not password:
+        if not identity or not password:
             error = "All fields are required."
         else:
             user = User.query.filter(
-                (User.email == identifier) | (User.username == identifier)
+                or_(User.email == identity, User.username == identity)
             ).first()
 
-            if user and user.check_password(password):
+            if not user:
+                error = "You are not registered. Please register first."
+            elif not user.check_password(password):
+                error = "Incorrect password."
+            else:
                 login_user(user, remember=True)
                 return redirect(url_for("home"))
-            else:
-                error = "Account not found or password is wrong. Please register."
 
     return render_template("login.html", error=error)
 
