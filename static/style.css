@@ -135,15 +135,16 @@ button:hover {
 
 /* Hero section */
 .hero {
-    height: calc(100vh - 70px);
+    min-height: auto;
+    padding: 50px 20px 20px; /* reduced */
     display: flex;
-    align-items: center;
     justify-content: center;
-    text-align: center;
 }
 
 .hero-content {
-    animation: fadeUp 1.2s ease forwards;
+    text-align: center;
+    max-width: 1000px;
+    margin-top: 10px; /* was 40px */
 }
 
 .hero-title {
@@ -159,7 +160,7 @@ button:hover {
 .hero-subtitle {
     color: #9ca3af;
     font-size: 18px;
-    margin-bottom: 30px;
+    margin-bottom: 15px; /* reduced */
 }
 
 .hero-button {
@@ -558,22 +559,22 @@ button:active {
 }
 
 .tools-section {
-  padding: 90px 20px;
+  padding: 40px 20px; /* was 90px */
   text-align: center;
 }
 
 .tools-title {
   font-size: 36px;
-  margin-bottom: 50px;
+  margin-bottom: 25px; /* was 50px */
   color: white;
 }
 
 .tools-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 30px;
-  max-width: 1000px;
-  margin: auto;
+  gap: 25px; /* slightly tighter */
+  max-width: 900px;
+  margin: 0 auto; /* remove top margin */
 }
 
 .tool-box {
