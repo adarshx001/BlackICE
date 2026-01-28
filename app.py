@@ -53,7 +53,6 @@ def home():
 
 @app.route("/password")
 def password():
-    # Real-time password strength handled via JS
     return render_template("password.html")
 
 # ---------------- HASHING ------------------------
@@ -85,6 +84,7 @@ def phishing():
 # ---------------- FILE ANALYZER ------------------
 
 @app.route("/file", methods=["GET", "POST"])
+@login_required
 def file_analyzer():
     data = None
 
@@ -101,34 +101,33 @@ def file_analyzer():
 
     return render_template("fileanalyzer.html", data=data)
 
-# ---------------- DASHBOARD ----------------------
-
-@app.route("/dashboard")
-@login_required
-def dashboard():
-    return render_template("dashboard.html")
-
 # ---------------- REGISTER -----------------------
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        username = request.form.get("username")
-        email = request.form.get("email")
-        password = request.form.get("password")
+        try:
+            username = request.form.get("username")
+            email = request.form.get("email")
+            password = request.form.get("password")
 
-        # Check if user already exists
-        if User.query.filter_by(email=email).first():
-            return "User already exists"
+            if not username or not email or not password:
+                return "All fields are required"
 
-        user = User(username=username, email=email)
-        user.set_password(password)
+            if User.query.filter_by(email=email).first():
+                return "Email already exists"
 
-        db.session.add(user)
-        db.session.commit()
+            user = User(username=username, email=email)
+            user.set_password(password)
 
-        login_user(user)
-        return redirect(url_for("dashboard"))
+            db.session.add(user)
+            db.session.commit()
+
+            login_user(user)
+            return redirect(url_for("home"))
+
+        except Exception as e:
+            return f"Registration error: {e}"
 
     return render_template("register.html")
 
@@ -137,16 +136,20 @@ def register():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        email = request.form.get("email")
-        password = request.form.get("password")
+        try:
+            email = request.form.get("email")
+            password = request.form.get("password")
 
-        user = User.query.filter_by(email=email).first()
+            user = User.query.filter_by(email=email).first()
 
-        if user and user.check_password(password):
-            login_user(user)
-            return redirect(url_for("dashboard"))
+            if user and user.check_password(password):
+                login_user(user)
+                return redirect(url_for("home"))
 
-        return "Invalid email or password"
+            return "Invalid email or password"
+
+        except Exception as e:
+            return f"Login error: {e}"
 
     return render_template("login.html")
 
@@ -159,7 +162,7 @@ def logout():
     return redirect(url_for("home"))
 
 # -------------------------------------------------
-# Create Database (ONE TIME)
+# Create Database Tables (Render needs this)
 # -------------------------------------------------
 
 with app.app_context():
@@ -170,4 +173,4 @@ with app.app_context():
 # -------------------------------------------------
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host="0.0.0.0", port=5000, debug=True)
