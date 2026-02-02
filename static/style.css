@@ -386,85 +386,6 @@ input[type="range"] {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* ===== Mobile Responsiveness ===== */
-@media (max-width: 768px) {
-
-    body {
-        padding: 0;
-    }
-
-    .container {
-        padding: 15px;
-    }
-
-    .topbar {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
-
-    .nav {
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-
-    .nav a {
-        font-size: 14px;
-    }
-
-    input, button {
-        width: 100%;
-        font-size: 16px;
-    }
-
-    button {
-        margin-top: 10px;
-    }
-
-    .card {
-        padding: 15px;
-    }
-
-    h1 {
-        font-size: 22px;
-    }
-
-    .subtitle {
-        font-size: 14px;
-    }
-
-    .hex-box {
-        font-size: 12px;
-    }
-}
-
-button {
-    min-height: 44px; /* good for fingers */
-}
-
-input {
-    min-height: 44px;
-}
-
-.select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    background: #0f172a;
-    border: 1px solid #1f2937;
-    color: #e5e7eb;
-    border-radius: 6px;
-}
-
-.output-row {
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.output-row button {
-    white-space: nowrap;
-}
 
 /* ===== Smooth Page Fade ===== */
 body {
@@ -618,66 +539,6 @@ button:active {
   font-size: 15px;
 }
 
-/* ===== Mobile Login Fix ===== */
-@media (max-width: 768px) {
-
-  .container {
-    min-height: calc(100vh - 80px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .card {
-    width: 100%;
-    max-width: 360px;
-    margin: auto;
-    padding: 22px;
-  }
-
-  .card h2,
-  .card h3 {
-    text-align: center;
-  }
-
-  .card button {
-    width: 100%;
-    margin-top: 10px;
-  }
-
-}
-
-/* ===== Mobile Login / Register Fix ===== */
-@media (max-width: 600px) {
-
-  .container {
-    margin: 0 auto;
-    padding: 20px;
-    width: 100%;
-  }
-
-  .card {
-    width: 100%;
-    margin: 40px auto;
-    padding: 20px;
-  }
-
-  .card h2 {
-    text-align: center;
-    font-size: 22px;
-  }
-
-  input {
-    font-size: 16px;
-    padding: 14px;
-  }
-
-  button {
-    width: 100%;
-    font-size: 16px;
-  }
-}
-
 
 /* ===== MOBILE FIX FOR BLACKICE ===== */
 @media (max-width: 768px) {
@@ -761,4 +622,96 @@ button:active {
   #strengthCard {
     width: 100%;
   }
+}
+
+/* ============ FINAL MOBILE OVERRIDE (ONLY ONE) ============ */
+@media (max-width: 768px) {
+
+  body {
+    overflow-x: hidden;
+  }
+
+  .topbar {
+    flex-direction: column;
+    padding: 12px;
+    gap: 8px;
+    text-align: center;
+  }
+
+  .logo {
+    justify-content: center;
+  }
+
+  .nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 6px;
+  }
+
+  .nav a {
+    font-size: 13px;
+    margin: 0;
+  }
+
+  .hero {
+    padding: 30px 12px;
+  }
+
+  .hero-title {
+    font-size: 30px;
+  }
+
+  .hero-subtitle {
+    font-size: 14px;
+  }
+
+  /* FORCE ALL GRIDS TO STACK */
+  .grid,
+  .tools-grid,
+  .dashboard-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px;
+  }
+
+  /* FORCE ALL CARDS TO FIT SCREEN */
+  .tool-box,
+  .tool-card,
+  .card,
+  .phishing-card,
+  .hex-box {
+    width: 100% !important;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 18px;
+  }
+
+  /* FORMS */
+  .phishing-form {
+    flex-direction: column;
+  }
+
+  .phishing-form input,
+  textarea,
+  input,
+  button {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  button {
+    padding: 14px;
+  }
+
+  /* TEXT SAFETY */
+  h1, h2, h3, p {
+    word-break: break-word;
+  }
+
+  /* DASHBOARD */
+  .dashboard-grid {
+    gap: 16px;
+  }
+
 }
