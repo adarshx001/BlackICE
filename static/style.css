@@ -791,3 +791,56 @@ button:active {
   }
 
 }
+
+
+/* ========= DARK GLASS POLISH ========= */
+
+/* Glass cards */
+.card, .tool-box {
+  background: rgba(17, 24, 39, 0.55) !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.45);
+}
+
+/* Topbar glass */
+.topbar {
+  background: rgba(17, 24, 39, 0.65) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+/* Buttons glow */
+button, .hero-button {
+  box-shadow: 0 0 0 rgba(56,189,248,0.0);
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+button:hover, .hero-button:hover {
+  box-shadow: 0 0 25px rgba(56,189,248,0.35);
+  transform: translateY(-2px);
+}
+
+/* Input glass */
+input, textarea, .hex-box {
+  background: rgba(2, 6, 23, 0.6);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+/* Subtle glow for tool boxes */
+.tool-box:hover {
+  box-shadow: 0 30px 60px rgba(56,189,248,0.35);
+}
+
+/* Smooth fade */
+body {
+  animation: glassFade 0.7s ease;
+}
+
+@keyframes glassFade {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
