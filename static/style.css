@@ -888,3 +888,15 @@ body {
     margin: 0 !important;
   }
 }
+
+
+/* ===== Center Dashboard Cards ===== */
+.grid {
+  justify-items: center;
+}
+
+.grid .card {
+  width: 100%;
+  max-width: 420px;
+  text-align: left;
+}
