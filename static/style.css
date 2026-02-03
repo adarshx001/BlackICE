@@ -924,3 +924,29 @@ body {
   }
 
 }
+
+
+/* ===== FORCE MOBILE FULL WIDTH FOR AUTH + DASHBOARD ===== */
+@media (max-width: 768px) {
+
+  .auth-page,
+  .dashboard-page {
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .auth-page .card,
+  .dashboard-page .container {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+  }
+
+  .dashboard-page .grid {
+    grid-template-columns: 1fr !important;
+  }
+
+}
