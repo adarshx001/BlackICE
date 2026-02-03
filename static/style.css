@@ -845,3 +845,46 @@ body {
   to   { opacity: 1; transform: translateY(0); }
 }
 
+
+/* ============ HARD MOBILE OVERRIDE (FINAL FIX) ============ */
+@media (max-width: 768px) {
+
+  body {
+    overflow-x: hidden;
+  }
+
+  /* AUTH PAGES */
+  .auth-page {
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .auth-page .card {
+    width: 100%;
+    max-width: 360px;
+    margin: 0;
+  }
+
+  /* DASHBOARD */
+  .dashboard-page {
+    padding: 16px;
+  }
+
+  .dashboard-page .grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .dashboard-page .card {
+    width: 100%;
+    margin: 0;
+  }
+
+  /* REMOVE DESKTOP CONTAINER BEHAVIOR */
+  .container {
+    max-width: 100% !important;
+    margin: 0 !important;
+  }
+}
